@@ -1,4 +1,5 @@
 import { View, StyleSheet } from 'react-native';
+
 import RepositoryStat from './RepositoryStat';
 
 const styles = StyleSheet.create({
