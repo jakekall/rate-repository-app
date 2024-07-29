@@ -1,15 +1,44 @@
-import { Text, View } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
+import RepositoryStats from './RepositoryStats';
+import RepositoryOverview from './RepositoryOverview';
+import theme from '../theme';
 
-const RepositoryItem = ({ fullName, description, language, stargazersCount, forksCount, reviewCount, ratingAverage }) => {
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.reprositoryItemBackground,
+    padding: 10,
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    gap: 20,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 5,
+  },
+});
+
+const RepositoryItem = ({ ownerAvatarUrl, fullName, description, language, stargazersCount, forksCount, reviewCount, ratingAverage }) => {
   return (
-    <View>
-      <Text>Full name: {fullName}</Text>
-      <Text>Description: {description}</Text>
-      <Text>Language: {language}</Text>
-      <Text>Stars: {stargazersCount}</Text>
-      <Text>Forks: {forksCount}</Text>
-      <Text>Reviews: {reviewCount}</Text>
-      <Text>Rating: {ratingAverage}</Text>
+    <View style={styles.container}>
+      <View style={styles.infoContainer}>
+        <Image
+          style={styles.avatar}
+          source={{uri: ownerAvatarUrl}}
+        />
+        <RepositoryOverview 
+          fullName={fullName}
+          description={description}
+          language={language}
+        />
+      </View>
+      <RepositoryStats
+        stargazersCount={stargazersCount}
+        forksCount={forksCount}
+        reviewCount={reviewCount}
+        ratingAverage={ratingAverage}
+      />
     </View>
   );
 };

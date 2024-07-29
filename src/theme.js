@@ -5,6 +5,8 @@ const theme = {
     textWhite: 'white',
     primary: '#0366d6',
     appBarBackground: '#24292e',
+    appBackground: '#e1e4e8',
+    reprositoryItemBackground: 'white',
   },
   fontSizes: {
     body: 14,

@@ -1,10 +1,10 @@
-import {  StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 import Text from './Text';
 
 const styles = StyleSheet.create({
   tab: {
-    padding: 20
-  }
+    padding: 20,
+  },
 });
 
 const AppBarTab = ({ text }) => {
