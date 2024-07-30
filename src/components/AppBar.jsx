@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
 import theme from '../theme';
@@ -15,8 +15,12 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <AppBarTab text='Repositiories' linkDestination='/'/>
-      <AppBarTab text='Sign In' linkDestination='/signin'/>
+      {/* Bug in ScrollView https://github.com/facebook/react-native/issues/42874 on Android
+          Tried to upgrade react-native to 0.73.7 to fix it but it broke the project so sticking with the bug*/}
+      <ScrollView horizontal>
+        <AppBarTab text='Repositiories' linkDestination='/' />
+        <AppBarTab text='Sign In' linkDestination='/signin' />
+      </ScrollView>
     </View>
   );
 };
