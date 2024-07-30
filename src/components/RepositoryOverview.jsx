@@ -5,6 +5,7 @@ import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'flex-start',
     gap: 7,
     paddingBottom: 10,
