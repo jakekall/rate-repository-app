@@ -2,7 +2,7 @@ import { Image, View, StyleSheet } from 'react-native';
 
 import RepositoryStats from './RepositoryStats';
 import RepositoryOverview from './RepositoryOverview';
-import theme from '../theme';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
