@@ -1,8 +1,10 @@
 import { View, ScrollView, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
+import { useQuery } from '@apollo/client';
 
 import theme from '../../theme';
 import AppBarTab from './AppBarTab';
+import { ME } from '../../graphql/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,13 +15,25 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+
+  const { data, error, loading } = useQuery(ME, {
+    fetchPolicy: 'cache-and-network',
+  });
+
+  if (loading || error) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       {/* Bug in ScrollView https://github.com/facebook/react-native/issues/42874 on Android
           Tried to upgrade react-native to 0.73.7 to fix it but it broke the project so sticking with the bug*/}
       <ScrollView horizontal>
         <AppBarTab text='Repositiories' linkDestination='/' />
-        <AppBarTab text='Sign in' linkDestination='/signin' />
+        {data.me ?
+          <AppBarTab text='Sign out' linkDestination='/signout' /> :
+          <AppBarTab text='Sign in' linkDestination='/signin' />
+        }
       </ScrollView>
     </View>
   );

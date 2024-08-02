@@ -49,8 +49,7 @@ const SignIn = () => {
     const { username, password } = values;
 
     try {
-      const { data } = await signIn({ username, password });
-      console.log(data);
+      await signIn({ username, password });
       navigate('/')
     } catch (e) {
       console.log(e);
@@ -87,7 +86,7 @@ const SignIn = () => {
       <Pressable onPress={formik.handleSubmit} style={[styles.shared, styles.button]}>
         <Text color='white' fontWeight='bold' fontSize='subheading'>Sign in</Text>
       </Pressable>
-  </View>
+    </View>
   )
 };
 
