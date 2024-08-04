@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.reprositoryItemBackground,
     padding: 10,
+    marginBottom: 10,
   },
   infoContainer: {
     flexDirection: 'row',
