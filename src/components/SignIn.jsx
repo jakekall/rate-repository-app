@@ -39,14 +39,14 @@ const validationSchema = yup.object().shape({
 const initialValues = {
   username: '',
   password: '',
-}
+};
 
 export const SignInContainer = ({ onSubmit }) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit
-  })
+  });
 
   return (
     <View style={styles.container}>
@@ -74,7 +74,7 @@ export const SignInContainer = ({ onSubmit }) => {
       </Pressable>
     </View>
   )
-}
+};
 
 const SignIn = () => {
   const [signIn] = useSignIn();
