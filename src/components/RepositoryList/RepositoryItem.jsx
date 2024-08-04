@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ ownerAvatarUrl, fullName, description, language, stargazersCount, forksCount, reviewCount, ratingAverage }) => {
   return (
-    <View style={styles.container}>
+    <View testID='repositoryItem' style={styles.container}>
       <View style={styles.infoContainer}>
         <Image
           style={styles.avatar}
