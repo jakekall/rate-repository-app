@@ -16,7 +16,6 @@ const useSignUp = () => {
     })
     return data;
   };
-
   return [signUp, result];
 };
 

@@ -21,7 +21,6 @@ const useSignIn = () => {
     apolloClient.resetStore();
     return data;
   };
-
   return [signIn, result];
 };
 

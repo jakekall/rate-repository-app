@@ -1,10 +1,9 @@
 import { View, ScrollView, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-import { useQuery } from '@apollo/client';
 
 import theme from '../../theme';
 import AppBarTab from './AppBarTab';
-import { ME } from '../../graphql/queries';
+import useGetCurrentUser from '../../hooks/useGetCurrentUser';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,11 +14,8 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-
-  const { data, error, loading } = useQuery(ME, {
-    fetchPolicy: 'cache-and-network',
-  });
-
+  const { user, loading, error } = useGetCurrentUser();
+  
   if (loading || error) {
     return null;
   }
@@ -30,10 +26,11 @@ const AppBar = () => {
           Tried to upgrade react-native to 0.73.7 to fix it but it broke the project so sticking with the bug*/}
       <ScrollView horizontal>
         <AppBarTab text='Repositiories' linkDestination='/' />
-        {data.me && <AppBarTab text='Create a review' linkDestination='/createreview' />}
-        {data.me && <AppBarTab text='Sign out' linkDestination='/signout' />}
-        {!data.me && <AppBarTab text='Sign in' linkDestination='/signin' />}
-        {!data.me && <AppBarTab text='Sign up' linkDestination='/signup' />}
+        {user && <AppBarTab text='Create a review' linkDestination='/createreview' />}
+        {user && <AppBarTab text='My reviews' linkDestination='/myreviews' />}
+        {user && <AppBarTab text='Sign out' linkDestination='/signout' />}
+        {!user && <AppBarTab text='Sign in' linkDestination='/signin' />}
+        {!user && <AppBarTab text='Sign up' linkDestination='/signup' />}
       </ScrollView>
     </View>
   );

@@ -8,7 +8,6 @@ const useRepository = (repositoryId) => {
     fetchPolicy: 'cache-and-network',
   });
   const repository = data ? data.repository : null;
-
   return { repository, error, loading };
 };
 

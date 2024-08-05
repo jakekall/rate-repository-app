@@ -12,7 +12,6 @@ const useRepositories = ({ orderBy, orderDirection }, searchKeyword) => {
     fetchPolicy: 'cache-and-network',
   });
   const repositories = data ? data.repositories : null;
-
   return { repositories, error, loading };
 };
 
