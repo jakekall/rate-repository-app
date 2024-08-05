@@ -30,6 +30,7 @@ const AppBar = () => {
           Tried to upgrade react-native to 0.73.7 to fix it but it broke the project so sticking with the bug*/}
       <ScrollView horizontal>
         <AppBarTab text='Repositiories' linkDestination='/' />
+        {data.me && <AppBarTab text='Create a review' linkDestination='/createreview' />}
         {data.me ?
           <AppBarTab text='Sign out' linkDestination='/signout' /> :
           <AppBarTab text='Sign in' linkDestination='/signin' />
