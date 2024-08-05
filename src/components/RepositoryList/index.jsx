@@ -20,13 +20,7 @@ const orderParameters= {
   'lowest': { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC', },
 };
 
-export const RepositoryListContainer = ({ repositories, selectedOrder, setSelectedOrder }) => {
-  const navigate = useNavigate();
-
-  const selectRepository = (id) => {
-    return () => navigate('/repositories/' + id);
-  };
-
+export const RepositoryListContainer = ({ repositories, selectedOrder, setSelectedOrder, selectRepository }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
@@ -60,12 +54,18 @@ const RepositoryList = () => {
   const [selectedOrder, setSelectedOrder] = useState('latest');
   const params = orderParameters[selectedOrder];
   const { repositories } = useRepositories(params);
+  
+  const navigate = useNavigate();
+  const selectRepository = (id) => {
+    return () => navigate('/repositories/' + id);
+  };
 
   return (
     <RepositoryListContainer
       repositories={repositories}
       selectedOrder={selectedOrder}
       setSelectedOrder={setSelectedOrder}
+      selectRepository={selectRepository}
     />
   );
 };

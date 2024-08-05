@@ -46,7 +46,8 @@ describe('RepositoryList', () => {
           },
         ],
       };
-      render(<RepositoryListContainer repositories={repositories} />)
+      const onPress = jest.fn();
+      render(<RepositoryListContainer repositories={repositories} selectRepository={onPress}/>)
 
       const repositoryItems = screen.getAllByTestId('repositoryItem');
       const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
