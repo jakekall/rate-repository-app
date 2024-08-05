@@ -3,10 +3,10 @@ import { Picker } from '@react-native-picker/picker';
 import { Searchbar } from 'react-native-paper';
 import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
+import { useNavigate } from 'react-router-native';
 
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
-import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   separator: {
@@ -27,7 +27,7 @@ const orderParameters = {
   'lowest': { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC', },
 };
 
-export const RepositoryListContainer = ({ repositories, selectedOrder, setSelectedOrder, selectRepository, searchQuery, setSearchQuery }) => {
+export const RepositoryListContainer = ({ repositories, selectedOrder, setSelectedOrder, selectRepository, searchQuery, setSearchQuery, onEndReach }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
@@ -61,6 +61,8 @@ export const RepositoryListContainer = ({ repositories, selectedOrder, setSelect
           </Picker>
         </View>
       }
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -70,11 +72,15 @@ const RepositoryList = () => {
   const [searchKeyword] = useDebounce(searchQuery, 500);
   const [selectedOrder, setSelectedOrder] = useState('latest');
   const params = orderParameters[selectedOrder];
-  const { repositories } = useRepositories(params, searchKeyword);
+  const { repositories, fetchMore } = useRepositories({ ...params, searchKeyword, first: 8 });
 
   const navigate = useNavigate();
   const selectRepository = (id) => {
     return () => navigate(`/repositories/${id}`);
+  };
+
+  const onEndReach = () => {
+    fetchMore();
   };
 
   return (
@@ -85,6 +91,7 @@ const RepositoryList = () => {
       selectRepository={selectRepository}
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
+      onEndReach={onEndReach}
     />
   );
 };
