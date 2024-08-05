@@ -46,14 +46,14 @@ const initialValues = {
 };
 
 export const ReviewForm = () => {
-  const [createReview] = useCreateReview()
+  const [createReview] = useCreateReview();
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const { ownerName, repositoryName, rating, text } = values;
     try {
       const result = await createReview({ ownerName, repositoryName, rating, text });
-      navigate(`/repositories/${result.repositoryId}`)
+      navigate(`/repositories/${result.repositoryId}`);
     } catch (e) {
       console.log(e);
     }

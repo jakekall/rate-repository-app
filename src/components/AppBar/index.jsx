@@ -31,10 +31,9 @@ const AppBar = () => {
       <ScrollView horizontal>
         <AppBarTab text='Repositiories' linkDestination='/' />
         {data.me && <AppBarTab text='Create a review' linkDestination='/createreview' />}
-        {data.me ?
-          <AppBarTab text='Sign out' linkDestination='/signout' /> :
-          <AppBarTab text='Sign in' linkDestination='/signin' />
-        }
+        {data.me && <AppBarTab text='Sign out' linkDestination='/signout' />}
+        {!data.me && <AppBarTab text='Sign in' linkDestination='/signin' />}
+        {!data.me && <AppBarTab text='Sign up' linkDestination='/signup' />}
       </ScrollView>
     </View>
   );
