@@ -1,8 +1,10 @@
-import { View, StyleSheet } from "react-native";
+import { Alert, View, StyleSheet, Pressable } from "react-native";
 import { format } from 'date-fns';
+import { useNavigate } from "react-router-native";
 
 import Text from "./Text";
 import theme from "../theme";
+import useDeleteReview from "../hooks/useDeleteReview";
 
 const styles = StyleSheet.create({
   container: {
@@ -33,11 +35,53 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 5,
-  }
+  },
+  buttonContainer: {
+    marginTop: 10,
+    flexDirection: 'row',
+    gap: 20,
+  },
+  button: {
+    borderWidth: 1,
+    borderRadius: 3,
+    padding: 7,
+    height: 50,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  viewButton: {
+    backgroundColor: theme.colors.primary,
+  },
+  deleteButton: {
+    backgroundColor: theme.colors.error,
+  },
 });
 
-const ReviewItem = ({ text, rating, createdAt, name }) => {
-  const createdAtFormatted = format(new Date(createdAt), 'dd.MM.yyyy')
+const ReviewItem = ({ id, text, rating, createdAt, name, repositoryId, isReviewer, refetchReviews }) => {
+  const navigate = useNavigate();
+  const [deleteReview] = useDeleteReview();
+  const createdAtFormatted = format(new Date(createdAt), 'dd.MM.yyyy');
+
+  const deleteButtonAlert = () =>
+    Alert.alert('Delete review', 'Are you sure you want to delete this review?', [
+      {
+        text: 'CANCEL',
+        onPress: () => { },
+        style: 'cancel',
+      },
+      {
+        text: 'DELETE',
+        onPress: async () => {
+          try {
+            await deleteReview(id);
+            refetchReviews()
+          } catch (e) {
+            console.log(e);
+          }
+        },
+      },
+    ]);
 
   return (
     <View style={styles.container}>
@@ -48,6 +92,14 @@ const ReviewItem = ({ text, rating, createdAt, name }) => {
         <Text fontSize='subheading' fontWeight='bold'>{name}</Text>
         <Text color='textSecondary'>{createdAtFormatted}</Text>
         <Text style={styles.text}>{text}</Text>
+        {isReviewer && <View style={styles.buttonContainer}>
+          <Pressable onPress={() => navigate(`/repositories/${repositoryId}`)} style={[styles.button, styles.viewButton]}>
+            <Text color='white' fontWeight='bold' fontSize='subheading'>View repository</Text>
+          </Pressable>
+          <Pressable onPress={deleteButtonAlert} style={[styles.button, styles.deleteButton]}>
+            <Text color='white' fontWeight='bold' fontSize='subheading'>Delete review</Text>
+          </Pressable>
+        </View>}
       </View>
     </View>
   );

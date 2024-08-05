@@ -1,5 +1,5 @@
 import { Image, View, Pressable, StyleSheet } from 'react-native';
-import * as Linking from 'expo-linking';
+import { openURL } from 'expo-linking';
 
 import Text from '../Text';
 import RepositoryStats from './RepositoryStats';
@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const RepositoryInfo = ({ repository: { ownerAvatarUrl, fullName, description, language, stargazersCount, forksCount, reviewCount, ratingAverage, url }, hasGithubButton }) => {
+const RepositoryInfo = ({ repository: { ownerAvatarUrl, fullName, description, language, stargazersCount, forksCount, reviewCount, ratingAverage, url }, isSingleRepository }) => {
   const openRepository = () => {
-    Linking.openURL(url);
+    openURL(url);
   };
-  
+
   return (
     <View testID='repositoryItem' style={styles.container}>
       <View style={styles.infoContainer}>
@@ -57,7 +57,7 @@ const RepositoryInfo = ({ repository: { ownerAvatarUrl, fullName, description, l
         reviewCount={reviewCount}
         ratingAverage={ratingAverage}
       />
-      {hasGithubButton && <Pressable onPress={openRepository} style={styles.button}>
+      {isSingleRepository && <Pressable onPress={openRepository} style={styles.button}>
         <Text color='white' fontWeight='bold' fontSize='subheading'>Open in GitHub</Text>
       </Pressable>}
     </View>

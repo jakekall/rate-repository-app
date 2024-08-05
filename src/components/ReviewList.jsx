@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const ReviewList = () => {
-  const { user } = useGetCurrentUser(true);
+  const { user, refetch } = useGetCurrentUser(true);
   const reviews = user?.reviews
     ? user.reviews.edges.map(edge => edge.node)
     : [];
@@ -23,10 +23,14 @@ const ReviewList = () => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => (
         <ReviewItem
+          id={item.id}
           text={item.text}
           rating={item.rating}
           createdAt={item.createdAt}
           name={item.repository.fullName}
+          repositoryId={item.repositoryId}
+          isReviewer={true}
+          refetchReviews={refetch}
         />
       )}
       keyExtractor={({ id }) => id}

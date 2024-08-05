@@ -31,7 +31,7 @@ export const RepositoryListContainer = ({ repositories, selectedOrder, setSelect
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
-  
+
   return (
     <FlatList
       data={repositoryNodes}
@@ -47,7 +47,7 @@ export const RepositoryListContainer = ({ repositories, selectedOrder, setSelect
             placeholder="Search repositories"
             onChangeText={setSearchQuery}
             value={searchQuery}
-            style={styles.searchBar}          
+            style={styles.searchBar}
           />
           <Picker
             selectedValue={selectedOrder}
@@ -74,7 +74,7 @@ const RepositoryList = () => {
 
   const navigate = useNavigate();
   const selectRepository = (id) => {
-    return () => navigate('/repositories/' + id);
+    return () => navigate(`/repositories/${id}`);
   };
 
   return (

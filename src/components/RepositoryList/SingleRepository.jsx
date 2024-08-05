@@ -30,11 +30,12 @@ const SingleRepository = () => {
           text={item.text}
           rating={item.rating}
           createdAt={item.createdAt}
+          repositoryId={item.repositoryId}
           name={item.user.username}
         />
       )}
       keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => repository && <RepositoryInfo repository={repository} hasGithubButton={true} />}
+      ListHeaderComponent={() => repository && <RepositoryInfo repository={repository} isSingleRepository={true} />}
     />
   );
 };
